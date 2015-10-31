@@ -1,7 +1,7 @@
 # You Don't Know JS: Types & Grammar
 # Chapter 1: Types
 
-Most developers would say that a dynamic language (like JS) does not have *types*. Let's see what the ES5.1 specification has to say on the topic:
+Most developers would say that a dynamic language (like JS) does not have *types*. Let's see what the ES5.1 specification (http://www.ecma-international.org/ecma-262/5.1/) has to say on the topic:
 
 > Algorithms within this specification manipulate values each of which has an associated type. The possible value types are exactly those defined in this clause. Types are further sub classified into ECMAScript language types and specification types.
 >
@@ -78,7 +78,7 @@ var a = null;
 (!a && typeof a === "object"); // true
 ```
 
-`null` is the only value that is "falsy" (aka false-like; see Chapter 4) but that also returns `"object"` from the `typeof` check.
+`null` is the only primitive value that is "falsy" (aka false-like; see Chapter 4) but that also returns `"object"` from the `typeof` check.
 
 So what's the seventh string value that `typeof` can return?
 
@@ -104,7 +104,7 @@ a.length; // 2
 
 Since you declared the function with two formal named parameters (`b` and `c`), the "length of the function" is `2`.
 
-What about arrays? They're pretty native to JS, so are they a special type?
+What about arrays? They're native to JS, so are they a special type?
 
 ```js
 typeof [1,2,3] === "object"; // true
@@ -136,7 +136,7 @@ The `typeof` operator always returns a string. So:
 typeof typeof 42; // "string"
 ```
 
-The first `typeof 42` returns `"number"`, and then `typeof "number"` is `"string"`.
+The first `typeof 42` returns `"number"`, and `typeof "number"` is `"string"`.
 
 ### `undefined` vs "undeclared"
 
@@ -157,7 +157,7 @@ typeof b; // "undefined"
 typeof c; // "undefined"
 ```
 
-It's tempting for most developers to think of the name "undefined" and think of it as a synonym for "undeclared." However, in JS, these two concepts are quite different.
+It's tempting for most developers to think of the word "undefined" and think of it as a synonym for "undeclared." However, in JS, these two concepts are quite different.
 
 An "undefined" variable is one that has been declared in the accessible scope, but *at the moment* has no other value in it. By contrast, an "undeclared" variable is one that has not been formally declared in the accessible scope.
 
@@ -216,7 +216,7 @@ if (typeof atob === "undefined") {
 }
 ```
 
-**Note:** If you're defining a "polyfill" for a feature if it doesn't already exist, you probably want to avoid using `var` to make the `atob` declaration. If you declare `var atob` inside the `if` statement, this declaration is hoisted (see the *"Scope & Closures"* title of this series) to the top of the scope, even if the `if` condition doesn't pass (because the global `atob` already exists!). In some browsers and for some special types of global built-in variables (often called "host objects"), this duplicate declaration may throw an error. Omitting the `var` prevents this hoisted declaration.
+**Note:** If you're defining a "polyfill" for a feature if it doesn't already exist, you probably want to avoid using `var` to make the `atob` declaration. If you declare `var atob` inside the `if` statement, this declaration is hoisted (see the *Scope & Closures* title of this series) to the top of the scope, even if the `if` condition doesn't pass (because the global `atob` already exists!). In some browsers and for some special types of global built-in variables (often called "host objects"), this duplicate declaration may throw an error. Omitting the `var` prevents this hoisted declaration.
 
 Another way of doing these checks against global variables but without the safety guard feature of `typeof` is to observe that all global variables are also properties of the global object, which in the browser is basically the `window` object. So, the above checks could have been done (quite safely) as:
 
@@ -252,7 +252,7 @@ function doSomethingCool() {
 
 ```js
 // an IIFE (see "Immediately Invoked Function Expressions"
-// discussion in the *"Scope & Closures"* title of this series)
+// discussion in the *Scope & Closures* title of this series)
 (function(){
 	function FeatureXYZ() { /*.. my XYZ feature ..*/ }
 

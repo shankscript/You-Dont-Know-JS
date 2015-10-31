@@ -86,7 +86,7 @@ One very common way to make such a conversion is to borrow the `slice(..)` utili
 function foo() {
 	var arr = Array.prototype.slice.call( arguments );
 	arr.push( "bam" );
-	console.log(arr);
+	console.log( arr );
 }
 
 foo( "bar", "baz" ); // ["bar","baz","bam"]
@@ -102,7 +102,7 @@ var arr = Array.from( arguments );
 ...
 ```
 
-**Note:** `Array.from(..)` has several powerful capabilities, and will be covered in detail in a later book in this series.
+**Note:** `Array.from(..)` has several powerful capabilities, and will be covered in detail in the *ES6 & Beyond* title of this series.
 
 ## Strings
 
@@ -216,7 +216,7 @@ JavaScript has just one numeric type: `number`. This type includes both "integer
 
 So, in JS, an "integer" is just a value that has no fractional decimal value. That is, `42.0` is as much an "integer" as `42`.
 
-Like most modern languages, including practically all scripting languages, the implementation of JavaScript's `number`s is based on the "IEEE 754" standard, often called "floating point." JavaScript specifically uses the "double precision" format (aka "64-bit binary") of the standard.
+Like most modern languages, including practically all scripting languages, the implementation of JavaScript's `number`s is based on the "IEEE 754" standard, often called "floating-point." JavaScript specifically uses the "double precision" format (aka "64-bit binary") of the standard.
 
 There are many great write-ups on the Web about the nitty-gritty details of how binary floating-point numbers are stored in memory, and the implications of those choices. Because understanding bit patterns in memory is not strictly necessary to understand how to correctly use `number`s in JS, we'll leave it as an excercise for the interested reader if you'd like to dig further into IEEE 754 details.
 
@@ -260,7 +260,7 @@ Very large or very small `number`s will by default be outputted in exponent form
 ```js
 var a = 5E10;
 a;					// 50000000000
-a.toExponential();	// 5e+10
+a.toExponential();	// "5e+10"
 
 var b = a * a;
 b;					// 2.5e+21
@@ -269,7 +269,7 @@ var c = 1 / a;
 c;					// 2e-11
 ```
 
-Because `number` values can be boxed with the `Number` object wrapper (see Chapter 3), `number` values can access methods that are built into the `Number.prototype` (see Chapter 3). For example, the `toFixed(..)` method allows you specify how many fractional decimal places you'd like the value to be represented with:
+Because `number` values can be boxed with the `Number` object wrapper (see Chapter 3), `number` values can access methods that are built into the `Number.prototype` (see Chapter 3). For example, the `toFixed(..)` method allows you to specify how many fractional decimal places you'd like the value to be represented with:
 
 ```js
 var a = 42.59;
@@ -329,7 +329,7 @@ var onethousand = 1E3;						// means 1 * 10^3
 var onemilliononehundredthousand = 1.1E6;	// means 1.1 * 10^6
 ```
 
-`number`s literals can also be expressed in other bases, like binary, octal, and hexadecimal.
+`number` literals can also be expressed in other bases, like binary, octal, and hexadecimal.
 
 These formats work in current versions of JavaScript:
 
@@ -364,7 +364,7 @@ The most (in)famous side effect of using binary floating-point numbers (which, r
 
 Mathematically, we know that statement should be `true`. Why is it `false`?
 
-Simply put, the representations for `0.1` and `0.2` in binary floating point are not exact, so when they are added, the result is not exactly `0.3`. It's **really** close: `0.30000000000000004`, but if your comparison fails, "close" is irrelevant.
+Simply put, the representations for `0.1` and `0.2` in binary floating-point are not exact, so when they are added, the result is not exactly `0.3`. It's **really** close: `0.30000000000000004`, but if your comparison fails, "close" is irrelevant.
 
 **Note:** Should JavaScript switch to a different `number` implementation that has exact representations for all values? Some think so. There have been many alternatives presented over the years. None of them have been accepted yet, and perhaps never will. As easy as it may seem to just wave a hand and say, "fix that bug already!", it's not nearly that easy. If it were, it most definitely would have been changed a long time ago.
 
@@ -398,7 +398,7 @@ numbersCloseEnoughToEqual( a, b );					// true
 numbersCloseEnoughToEqual( 0.0000001, 0.0000002 );	// false
 ```
 
-The maximum floating-point value that can be represented is roughly `1.798e+308` (which is really, really, really huge!), predefined for you as `Number.MAX_VALUE`. On the small end, `Number.MIN_VALUE` is roughly `5e-324`.
+The maximum floating-point value that can be represented is roughly `1.798e+308` (which is really, really, really huge!), predefined for you as `Number.MAX_VALUE`. On the small end, `Number.MIN_VALUE` is roughly `5e-324`, which isn't negative but is really close to zero!
 
 ### Safe Integer Ranges
 
@@ -525,7 +525,7 @@ The expression `void ___` "voids" out any value, so that the result of the expre
 ```js
 var a = 42;
 
-console.log(void a, a); // undefined 42
+console.log( void a, a ); // undefined 42
 ```
 
 By convention (mostly from C-language programming), to represent the `undefined` value stand-alone by using `void`, you'd use `void 0` (though clearly even `void true` or any other `void` expression does the same thing). There's no practical difference between `void 0`, `void 1`, and `undefined`.
@@ -539,7 +539,7 @@ function doSomething() {
 	// note: `APP.ready` is provided by our application
 	if (!APP.ready) {
 		// try again later
-		return void setTimeout(doSomething,100);
+		return void setTimeout( doSomething, 100 );
 	}
 
 	var result;
@@ -561,7 +561,7 @@ Many devs prefer to just do these actions separately, which works the same but d
 ```js
 if (!APP.ready) {
 	// try again later
-	setTimeout(doSomething,100);
+	setTimeout( doSomething, 100 );
 	return;
 }
 ```
@@ -599,7 +599,7 @@ a == NaN;	// false
 a === NaN;	// false
 ```
 
-`NaN` is a very special value in that it's never equal to another `NaN` value (i.e., it's never equal to itself). It's the only value, in fact, that is not reflexive (without the identity characteristic `x === x`). So, `NaN !== NaN`. A bit strange, huh?
+`NaN` is a very special value in that it's never equal to another `NaN` value (i.e., it's never equal to itself). It's the only value, in fact, that is not reflexive (without the Identity characteristic `x === x`). So, `NaN !== NaN`. A bit strange, huh?
 
 So how *do* we test for it, if we can't compare to `NaN` (since that comparison would always fail)?
 
@@ -620,7 +620,7 @@ var a = 2 / "foo";
 var b = "foo";
 
 a; // NaN
-b; "foo"
+b; // "foo"
 
 window.isNaN( a ); // true
 window.isNaN( b ); // true -- ouch!
@@ -705,7 +705,7 @@ But what about any positive finite `number` divided by `Infinity`? That's easy! 
 
 #### Zeros
 
-While it may confuse the mathematician-minded reader, JavaScript has both a normal zero `0` (otherwise known as a positive zero `+0`) *and* a negative zero `-0`. Before we explain why the `-0` exists, we should examine how JS handles it, because it can be quite confusing.
+While it may confuse the mathematics-minded reader, JavaScript has both a normal zero `0` (otherwise known as a positive zero `+0`) *and* a negative zero `-0`. Before we explain why the `-0` exists, we should examine how JS handles it, because it can be quite confusing.
 
 Besides being specified literally as `-0`, negative zero also results from certain mathematic operations. For example:
 
@@ -732,7 +732,7 @@ a + "";						// "0"
 String( a );				// "0"
 
 // strangely, even JSON gets in on the deception
-JSON.stringify( 0 / -3 );	// "0"
+JSON.stringify( a );		// "0"
 ```
 
 Interestingly, the reverse operations (going from `string` to `number`) don't lie:
@@ -819,7 +819,7 @@ if (!Object.is) {
 
 ## Value vs. Reference
 
-In many other languages, values can either be assigned/passed by value or by reference depending on the syntax you use.
+In many other languages, values can either be assigned/passed by value-copy or by reference-copy depending on the syntax you use.
 
 For example, in C++ if you want to pass a `number` variable into a function and have that variable's value updated, you can declare the function parameter like `int& myNum`, and when you pass in a variable like `x`, `myNum` will be a **reference to `x`**; references are like a special form of pointers, where you obtain a pointer to another variable (like an *alias*). If you don't declare a reference parameter, the value passed in will *always* be copied, even if it's a complex object.
 
@@ -827,7 +827,7 @@ In JavaScript, there are no pointers, and references work a bit differently. You
 
 A reference in JS points at a (shared) **value**, so if you have 10 different references, they are all always distinct references to a single shared value; **none of them are references/pointers to each other.**
 
-Moreover, in JavaScript, there are no syntactic hints that control value vs. reference assignment/passing. Instead, the *type* of the value *solely* controls whether that value will be assigned through value-copy or by reference.
+Moreover, in JavaScript, there are no syntactic hints that control value vs. reference assignment/passing. Instead, the *type* of the value *solely* controls whether that value will be assigned by value-copy or by reference-copy.
 
 Let's illustrate:
 
@@ -917,15 +917,15 @@ As you can see, `x.length = 0` and `x.push(4,5,6,7)` were not creating a new `ar
 
 Remember: you cannot directly control/override value-copy vs. reference -- those semantics are controlled entirely by the type of the underlying value.
 
-To effectively pass a compound value (like an `array`) by value, you need to manually make a copy of it, so that the reference passed doesn't still point to the original. For example:
+To effectively pass a compound value (like an `array`) by value-copy, you need to manually make a copy of it, so that the reference passed doesn't still point to the original. For example:
 
 ```js
 foo( a.slice() );
 ```
 
-`Array#slice(..)` with no parameters by default makes an entirely new (shallow) copy of the `array`. So, we pass in a reference only to the copied `array`, and thus `foo(..)` cannot affect the contents of `a`.
+`slice(..)` with no parameters by default makes an entirely new (shallow) copy of the `array`. So, we pass in a reference only to the copied `array`, and thus `foo(..)` cannot affect the contents of `a`.
 
-To do the reverse -- pass a scalar primitive value in a way where its value updates can be seen, kinda like a reference -- you have to wrap the value in another compound value (`object`, `array`, etc) that *can* be passed by reference:
+To do the reverse -- pass a scalar primitive value in a way where its value updates can be seen, kinda like a reference -- you have to wrap the value in another compound value (`object`, `array`, etc) that *can* be passed by reference-copy:
 
 ```js
 function foo(wrapper) {
@@ -957,7 +957,7 @@ var a = 2;
 var b = new Number( a ); // or equivalently `Object(a)`
 
 foo( b );
-console.log( b ); // 2 -- not 3
+console.log( b ); // 2, not 3
 ```
 
 The problem is that the underlying scalar primitive value is *not mutable* (same goes for `String` and `Boolean`). If a `Number` object holds the scalar primitive value `2`, that exact `Number` object can never be changed to hold another value; you can only create a whole new `Number` object with a different value.
@@ -982,4 +982,4 @@ The `null` type has just one value: `null`, and likewise the `undefined` type ha
 
 `number`s include several special values, like `NaN` (supposedly "Not a Number", but really more appropriately "invalid number"); `+Infinity` and `-Infinity`; and `-0`.
 
-Simple scalar primitives (`string`s, `number`s, etc.) are assigned/passed by value-copy, but compound values (`object`s, etc.) are assigned/passed by reference. References are not like references/pointers in other languages -- they're never pointed at other variables/references, only at the underlying values.
+Simple scalar primitives (`string`s, `number`s, etc.) are assigned/passed by value-copy, but compound values (`object`s, etc.) are assigned/passed by reference-copy. References are not like references/pointers in other languages -- they're never pointed at other variables/references, only at the underlying values.

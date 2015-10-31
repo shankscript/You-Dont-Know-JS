@@ -2,12 +2,16 @@
 
 ## Table of Contents
 
+* Foreword
 * Preface
 * Chapter 1: Into Programming
 	* Code
+	* Try It Yourself
+	* Operators
 	* Values & Types
 	* Code Comments
 	* Variables
+	* Blocks
 	* Conditionals
 	* Loops
 	* Functions
@@ -17,7 +21,7 @@
 	* Variables
 	* Conditionals
 	* Strict Mode
-	* Function Closure
+	* Functions As Values
 	* `this` Keyword
 	* Prototypes
 	* Old & New
@@ -28,4 +32,4 @@
 	* Types & Grammar
 	* Async & Performance
 	* ES6 & Beyond
-* Appendix A: Thank You's!
+* Appendix A: Acknowledgments

@@ -2,6 +2,7 @@
 
 ## Table of Contents
 
+* Foreword
 * Preface
 * Chapter 1: `this` Or That?
 	* Why `this`?
@@ -35,5 +36,5 @@
 	* Nicer Syntax
 	* Introspection
 * Appendix A: ES6 `class`
-* Appendix B: Thank You's!
+* Appendix B: Acknowledgments
 

@@ -2,6 +2,7 @@
 
 ## Table of Contents
 
+* Foreword
 * Preface
 * Chapter 1: What is Scope?
 	* Compiler Theory
@@ -29,4 +30,4 @@
 * Appendix A: Dynamic Scope
 * Appendix B: Polyfilling Block Scope
 * Appendix C: Lexical-this
-* Appendix D: Thank You's!
+* Appendix D: Acknowledgments

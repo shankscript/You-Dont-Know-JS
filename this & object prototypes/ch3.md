@@ -38,7 +38,7 @@ Objects are the general building block upon which much of JS is built. They are 
 * `undefined`
 * `object`
 
-Note that the *simple primitives* (`string`, `boolean`, `number`, `null`, and `undefined`) are **not** themselves `objects`. `null` is sometimes referred to as an object type, but this misconception stems from a bug in the language which causes `typeof null` to return the string `"object"` incorrectly (and confusingly). In fact, `null` is its own primitive type.
+Note that the *simple primitives* (`string`, `number`, `boolean`, `null`, and `undefined`) are **not** themselves `objects`. `null` is sometimes referred to as an object type, but this misconception stems from a bug in the language which causes `typeof null` to return the string `"object"` incorrectly (and confusingly). In fact, `null` is its own primitive type.
 
 **It's a common mis-statement that "everything in JavaScript is an object". This is clearly not true.**
 
@@ -72,7 +72,7 @@ typeof strPrimitive;							// "string"
 strPrimitive instanceof String;					// false
 
 var strObject = new String( "I am a string" );
-typeof strObject; // "object"
+typeof strObject; 								// "object"
 strObject instanceof String;					// true
 
 // inspect the object sub-type
@@ -130,6 +130,7 @@ The main difference between the two syntaxes is that the `.` operator requires a
 Also, since the `[".."]` syntax uses a string's **value** to specify the location, this means the program can programmatically build up the value of the string, such as:
 
 ```js
+var wantA = true;
 var myObject = {
 	a: 2
 };
@@ -245,7 +246,7 @@ myObject.foo;	// function foo(){..}
 
 ### Arrays
 
-Arrays also use the `[ ]` access form, but as mentioned above, they have slightly more structured organization for how and where values are stored (though still no restriction on what *type* of values are stored). Arrays assume *numeric indexing*, which means that values are stored in locations, usually called *indices*, at positive integers, such as `0` and `42`.
+Arrays also use the `[ ]` access form, but as mentioned above, they have slightly more structured organization for how and where values are stored (though still no restriction on what *type* of values are stored). Arrays assume *numeric indexing*, which means that values are stored in locations, usually called *indices*, at non-negative integers, such as `0` and `42`.
 
 ```js
 var myArray = [ "foo", 42, "bar" ];
@@ -271,7 +272,7 @@ myArray.baz;	// "baz"
 
 Notice that adding named properties (regardless of `.` or `[ ]` operator syntax) does not change the reported `length` of the array.
 
-You *could* use an array as a plain key/value object, and never add any numeric indices, but this is bad idea because arrays have behavior and optimizations specific to their intended use, and likewise with plain objects. Use objects to store key/value pairs, and arrays to store values at numeric indices.
+You *could* use an array as a plain key/value object, and never add any numeric indices, but this is a bad idea because arrays have behavior and optimizations specific to their intended use, and likewise with plain objects. Use objects to store key/value pairs, and arrays to store values at numeric indices.
 
 **Be careful:** If you try to add a property to an array, but the property name *looks* like a number, it will end up instead as a numeric index (thus modifying the array contents):
 
@@ -318,7 +319,7 @@ Should we detect a circular reference and just break the circular traversal (lea
 
 Moreover, it's not really clear what "duplicating" a function would mean? There are some hacks like pulling out the `toString()` serialization of a function's source code (which varies across implementations and is not even reliable in all engines depending on the type of function being inspected).
 
-So how do we resolve all these tricky questions? Various JS frameworks have each picked their own interpretations and made their own decisions. But which of these (if any) should JS adopt as *the* standard. For a long time, there was no clear answer.
+So how do we resolve all these tricky questions? Various JS frameworks have each picked their own interpretations and made their own decisions. But which of these (if any) should JS adopt as *the* standard? For a long time, there was no clear answer.
 
 One subset solution is that objects which are JSON-safe (that is, can be serialized to a JSON string and then re-parsed to an object with the same structure and values) can easily be *duplicated* with:
 
@@ -424,7 +425,7 @@ myObject.a = 3; // TypeError
 
 The `TypeError` tells us we cannot change a non-writable property.
 
-**Note:** We will discuss getters/setters shortly, but briefly, you can observe that `writable:false` means a value cannot be changed, which is somewhat equivalent to if you defined a no-op setter. Actually, your no-op setter would need throw a `TypeError` when called, to be truly conformant to `writable:false`.
+**Note:** We will discuss getters/setters shortly, but briefly, you can observe that `writable:false` means a value cannot be changed, which is somewhat equivalent to if you defined a no-op setter. Actually, your no-op setter would need to throw a `TypeError` when called, to be truly conformant to `writable:false`.
 
 #### Configurable
 
@@ -630,7 +631,7 @@ The default `[[Put]]` and `[[Get]]` operations for objects completely control ho
 
 ES5 introduced a way to override part of these default operations, not on an object level but a per-property level, through the use of getters and setters. Getters are properties which actually call a hidden function to retrieve a value. Setters are properties which actually call a hidden function to set a value.
 
-When you define a property to have either a getter or a setter or both, its definition becomes an "accessor descriptor" (as opposed to a "data descriptor"). For accessor-desciptors, the `value` and `writable` characteristics of the descriptor are moot and ignored, and instead JS considers the `set` and `get` characteristics of the property (as well as `configurable` and `enumerable`).
+When you define a property to have either a getter or a setter or both, its definition becomes an "accessor descriptor" (as opposed to a "data descriptor"). For accessor-descriptors, the `value` and `writable` characteristics of the descriptor are moot and ignored, and instead JS considers the `set` and `get` characteristics of the property (as well as `configurable` and `enumerable`).
 
 Consider:
 
@@ -716,7 +717,7 @@ myObject.hasOwnProperty( "a" );	// true
 myObject.hasOwnProperty( "b" );	// false
 ```
 
-The `in` operator will check to see if the property is *in* the object, or if it exists at any higher level of the `[[Prototype]]` chain object traversal (see Chapter 5). By contrast, `hasOwnProperty(..)` checks to see if *only* `myObject` has the property or not, and will *not* consult the `[[Prototype]]` chain. We'll come back to the important differences between these two operations in the Chapter 5 when we explore `[[Prototype]]`s in detail.
+The `in` operator will check to see if the property is *in* the object, or if it exists at any higher level of the `[[Prototype]]` chain object traversal (see Chapter 5). By contrast, `hasOwnProperty(..)` checks to see if *only* `myObject` has the property or not, and will *not* consult the `[[Prototype]]` chain. We'll come back to the important differences between these two operations in Chapter 5 when we explore `[[Prototype]]`s in detail.
 
 `hasOwnProperty(..)` is accessible for all normal objects via delegation to `Object.prototype` (see Chapter 5). But it's possible to create an object that does not link to `Object.prototype` (via `Object.create(null)` -- see Chapter 5). In this case, a method call like `myObject.hasOwnProperty(..)` would fail.
 

@@ -1,5 +1,7 @@
 # You Don't Know JS: Async & Performance
 
+<img src="cover.jpg" width="300">
+
 -----
 
 **[Purchase digital/print copy from O'Reilly](http://shop.oreilly.com/product/0636920033752.do)**
@@ -8,6 +10,7 @@
 
 [Table of Contents](toc.md)
 
+* [Foreword](foreword.md) (by [Jake Archibald](http://jakearchibald.com))
 * [Preface](../preface.md)
 * [Chapter 1: Asynchrony: Now & Later](ch1.md)
 * [Chapter 2: Callbacks](ch2.md)
